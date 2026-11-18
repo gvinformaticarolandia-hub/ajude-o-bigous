@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rifa do bem · Ajude o Bigous</title>
+<meta name="description" content="Rifa beneficente para ajudar nos custos do tratamento do Bigous. Cada número custa R$ 10.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--bg:#EAF2EC;--ink:#12302F;--mut:#4E6B68;--card:#fff;--acc:#F2B632;--acc2:#1F6F68;--ok:#1F6F68;--res:#F2B632;--line:#C9DAD0;--r:18px}
+@media(prefers-color-scheme:dark){:root{--bg:#0F1F1E;--ink:#E8F1EC;--mut:#9DB8B2;--card:#172D2B;--line:#2A4642;--acc2:#4FB5AB;--ok:#4FB5AB}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Figtree,system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+h1,h2,h3{font-family:'Bricolage Grotesque',Figtree,sans-serif;line-height:1.1;margin:0}
+.w{max-width:880px;margin:0 auto;padding:0 20px}
+.hero{padding:36px 0 28px;display:grid;gap:24px;align-items:center}
+@media(min-width:760px){.hero{grid-template-columns:1.1fr 1fr}}
+.hero h1{font-size:clamp(2.6rem,9vw,4.6rem);font-weight:800;letter-spacing:-.03em}
+.hero p{color:var(--mut);max-width:46ch}
+.foto{aspect-ratio:1/1;border-radius:46% 54% 50% 50%/55% 45% 55% 45%;overflow:hidden;background:var(--acc);display:grid;place-items:center;font-size:6rem;box-shadow:12px 12px 0 var(--acc2)}
+.foto img{width:100%;height:100%;object-fit:cover}
+.btn{display:inline-block;border:0;border-radius:999px;background:var(--acc);color:#12302F;font:700 1rem Figtree,sans-serif;padding:14px 26px;cursor:pointer;text-decoration:none}
+.btn.sec{background:transparent;border:2px solid var(--acc2);color:var(--ink)}
+.btn:focus-visible,.n:focus-visible,input:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+section{padding:26px 0}
+h2{font-size:1.9rem;margin-bottom:12px}
+.premios{display:grid;gap:12px;padding:0;margin:0;list-style:none}
+@media(min-width:640px){.premios{grid-template-columns:repeat(3,1fr)}}
+.premios li{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.premios b{display:block;font:800 1.15rem 'Bricolage Grotesque',sans-serif}
+.premios span{color:var(--mut);font-size:.95rem}
+.prog{background:var(--card);border-radius:var(--r);padding:18px;border:2px solid var(--line)}
+.bar{height:12px;border-radius:9px;background:var(--line);overflow:hidden;margin:10px 0 6px}
+.bar i{display:block;height:100%;background:var(--acc2);width:0;transition:width .6s}
+.leg{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem;color:var(--mut);margin:10px 0 14px}
+.leg s{display:inline-block;width:14px;height:14px;border-radius:5px;margin-right:6px;vertical-align:-2px;text-decoration:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:8px}
+.n{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;height:48px;font:700 1rem Figtree,sans-serif;cursor:pointer}
+.n.res{background:var(--res);border-color:var(--res);color:#12302F;cursor:not-allowed;opacity:.85}
+.n.pago{background:var(--ok);border-color:var(--ok);color:#fff;cursor:not-allowed}
+.n.sel{background:var(--ink);color:var(--bg);border-color:var(--ink);transform:scale(1.06)}
+.bar-fix{position:sticky;bottom:0;margin-top:16px;background:var(--card);border:2px solid var(--ink);border-radius:var(--r);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+dialog{border:0;border-radius:var(--r);padding:24px;max-width:440px;width:calc(100% - 28px);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:#0008}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input{width:100%;font:inherit;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.err{color:#C0392B;font-weight:600;margin-top:10px}
+.pix{text-align:center}
+.pix #qr{display:inline-block;background:#fff;padding:10px;border-radius:12px;margin:10px 0}
+.code{word-break:break-all;font-size:.78rem;background:var(--bg);border-radius:10px;padding:10px;text-align:left;max-height:84px;overflow:auto}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+footer{padding:30px 0 50px;color:var(--mut);font-size:.9rem}
+.hide{display:none!important}
+.g{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.g.p{border-color:var(--res)}.g.ok{border-color:var(--ok)}
+.g h3{font-size:1.1rem}.g small{color:var(--mut)}
+.tag{display:inline-block;border-radius:8px;padding:2px 10px;font-weight:700;font-size:.85rem;background:var(--res);color:#12302F}.tag.ok{background:var(--ok);color:#fff}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="w">
+  <header class="hero">
+    <div>
+      <h1>Ajude o Bigous a voltar pra casa</h1>
+      <p>O Bigous, um cachorrinho muito carinhoso, está internado no hospital veterinário da UEL, em Londrina. Ele fez vários exames, tomou muitos remédios e precisou até de transfusão de sangue. O tratamento está salvando a vida dele, mas o custo ficou alto demais para os donos. Cada número desta rifa ajuda a pagar essa conta.</p>
+      <a class="btn" href="#numeros">Escolher meus números</a>
+    </div>
+    <div class="foto"><img src="bigous.jpg" alt="Bigous, o cachorrinho" onerror="this.remove();this.parentNode.textContent='🐶'"></div>
+  </header>
+  <section>
+    <h2>Os prêmios</h2>
+    <ul class="premios">
+      <li><b>1º prêmio</b><span>Progressiva</span></li>
+      <li><b>2º prêmio</b><span>Hidratação + escova</span></li>
+      <li><b>3º prêmio</b><span>Esmaltação em gel</span></li>
+    </ul>
+  </section>
+  <section id="numeros">
+    <h2>Escolha seus números</h2>
+    <div class="prog"><b id="arr">R$ 0 arrecadados</b><div class="bar"><i id="bar"></i></div><span id="cont" style="color:var(--mut)"></span></div>
+    <div class="leg"><span><s style="background:var(--card);border:2px solid var(--line)"></s>Livre</span><span><s style="background:var(--ok)"></s>Já comprado</span><span>R$ 10 por número</span></div>
+    <div class="grid" id="grid"></div>
+    <div class="bar-fix"><span id="resumo">Nenhum número escolhido</span><button class="btn" id="go" disabled>Comprar</button></div>
+  </section>
+  <section>
+    <h2>Como funciona</h2>
+    <p>Escolha os números, preencha seus dados e pague por Pix. Depois toque em <b>Enviar comprovante</b> para avisar pelo WhatsApp. Assim que o pagamento for conferido, seus números aparecem como comprados aqui no site. O sorteio acontece quando os 250 números forem vendidos.</p>
+  </section>
+  <footer>Feito com carinho para o Bigous.</footer>
+</div>
+
+<dialog id="dlg">
+  <div id="d1">
+    <h3>Seus dados</h3>
+    <p id="d1r" style="color:var(--mut);margin:6px 0 0"></p>
+    <label for="nome">Nome completo</label><input id="nome" autocomplete="name">
+    <label for="zap">Seu WhatsApp com DDD</label><input id="zap" type="tel" inputmode="tel" placeholder="(43) 99999-9999" autocomplete="tel">
+    <div class="err" id="err"></div>
+    <div class="row" style="justify-content:flex-end"><button class="btn sec" id="cancel">Cancelar</button><button class="btn" id="conf">Ir para o Pix</button></div>
+  </div>
+  <div id="d2" class="pix hide">
+    <h3>Pague por Pix</h3>
+    <p id="d2r" style="margin:6px 0"></p>
+    <div id="qr"></div>
+    <p style="margin:0 0 6px">Pix copia e cola:</p>
+    <div class="code" id="code"></div>
+    <p style="font-size:.9rem;color:var(--mut)">Ou use a chave e-mail: <b id="chv"></b></p>
+    <div class="row"><button class="btn sec" id="cp">Copiar código Pix</button><a class="btn" id="wa" target="_blank" rel="noopener">Enviar comprovante</a></div>
+    <p style="font-size:.85rem;color:var(--mut)">Seus números só ficam garantidos depois que o pagamento for conferido.</p>
+  </div>
+</dialog>
+
+<script>
+/* ====== CONFIGURAÇÕES: edite aqui ====== */
+const CFG={
+  total:250, preco:10,
+  chavePix:"ajudeobigous@gmail.com",
+  nomePix:"AJUDE O BIGOUS", cidadePix:"LONDRINA",
+  zapOrganizadora:"5543988623313" /* WhatsApp que recebe os comprovantes: 55 + DDD + número */
+};
+/* ======================================= */
+const $=id=>document.getElementById(id),brl=v=>"R$ "+v.toLocaleString("pt-BR");
+let pagos=new Set(),sel=new Set();
+const grid=$("grid");
+for(let i=1;i<=CFG.total;i++){const b=document.createElement("button");b.className="n";b.textContent=i;b.dataset.n=i;grid.append(b);}
+grid.addEventListener("click",e=>{const b=e.target.closest(".n");if(!b)return;const n=+b.dataset.n;if(pagos.has(n))return;sel.has(n)?sel.delete(n):sel.add(n);pinta();});
+function pinta(){
+  grid.querySelectorAll(".n").forEach(b=>{const n=+b.dataset.n,p=pagos.has(n);if(p)sel.delete(n);
+    b.className="n"+(p?" pago":sel.has(n)?" sel":"");b.disabled=p;b.setAttribute("aria-label","Número "+n+(p?", já comprado":""));});
+  $("arr").textContent=brl(pagos.size*CFG.preco)+" arrecadados";
+  $("bar").style.width=(pagos.size/CFG.total*100)+"%";
+  $("cont").textContent=pagos.size+" comprados · "+(CFG.total-pagos.size)+" livres";
+  const q=sel.size;$("resumo").textContent=q?q+(q>1?" números":" número")+": "+[...sel].sort((a,b)=>a-b).join(", ")+" = "+brl(q*CFG.preco):"Nenhum número escolhido";
+  $("go").disabled=!q;
+}
+fetch("pagos.json?"+Date.now()).then(r=>r.json()).then(a=>{pagos=new Set(a.map(Number));pinta();}).catch(pinta);
+
+const dlg=$("dlg");
+$("go").onclick=()=>{$("d1").classList.remove("hide");$("d2").classList.add("hide");$("err").textContent="";
+  $("d1r").textContent=[...sel].sort((a,b)=>a-b).join(", ")+" · "+brl(sel.size*CFG.preco);dlg.showModal();};
+$("cancel").onclick=()=>dlg.close();
+$("conf").onclick=()=>{
+  const nome=$("nome").value.trim(),zap=$("zap").value.trim();
+  if(nome.split(/\s+/).length<2){$("err").textContent="Digite seu nome completo.";return;}
+  if(zap.replace(/\D/g,"").length<10){$("err").textContent="Digite o WhatsApp com DDD.";return;}
+  const nums=[...sel].sort((a,b)=>a-b),v=nums.length*CFG.preco,p=pix(v);
+  $("d2r").textContent="Números "+nums.join(", ")+" · Total "+brl(v);
+  $("code").textContent=p;$("chv").textContent=CFG.chavePix;
+  $("qr").innerHTML="";new QRCode($("qr"),{text:p,width:190,height:190});
+  const msg="Olá! Paguei a rifa do Bigous.\nNome: "+nome+"\nWhatsApp: "+zap+"\nNúmeros: "+nums.join(", ")+"\nTotal: "+brl(v)+"\n(comprovante em anexo)";
+  $("wa").href="https://wa.me/"+CFG.zapOrganizadora+"?text="+encodeURIComponent(msg);
+  $("d1").classList.add("hide");$("d2").classList.remove("hide");
+};
+$("cp").onclick=async()=>{try{await navigator.clipboard.writeText($("code").textContent);$("cp").textContent="Copiado!";}catch{const r=document.createRange();r.selectNode($("code"));getSelection().addRange(r);}};
+function pix(v){
+  const f=(i,x)=>i+String(x.length).padStart(2,"0")+x;
+  const s=f("00","01")+f("26",f("00","br.gov.bcb.pix")+f("01",CFG.chavePix))+f("52","0000")+f("53","986")+f("54",v.toFixed(2))+f("58","BR")+f("59",CFG.nomePix)+f("60",CFG.cidadePix)+f("62",f("05","RIFA"))+"6304";
+  let c=0xFFFF;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=c&0x8000?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF;}
+  return s+c.toString(16).toUpperCase().padStart(4,"0");
+}
+</script>
+</body>
+</html>
